@@ -19,6 +19,8 @@ public class CameraRotation : MonoBehaviour
     // For camera movement
     float CameraPanningSpeed = 10.0f;
 
+    //ui
+    public RectTransform rtCompass;
 
     void Update()
     {
@@ -106,15 +108,17 @@ public class CameraRotation : MonoBehaviour
             rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 
             transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+            rtCompass.Rotate(0, 0, Input.GetAxis("Mouse X") * -sensitivityX);
         }
         else if (axes == RotationAxes.MouseX)
         {
             transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityX, 0);
+            rtCompass.Rotate(0, 0, Input.GetAxis("Mouse X") * -sensitivityX);
         }
         else
         {
             rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-            rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
+            //rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 
             transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
         }
